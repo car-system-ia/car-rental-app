@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>نظام إدارة كراء السيارات</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    text-align: center;
+    min-height: 100vh;
+}
+
+/* 🔥 Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+}
+
+/* 🔥 العنوان */
+h1 {
+    margin-top: 20px;
+    font-size: 42px;
+    background: linear-gradient(to right, #38bdf8, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    margin-bottom: 40px;
+    color: #cbd5f5;
+}
+
+/* 🔥 الكروت */
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.card {
+    width: 300px;
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: 0.4s;
+    animation: fadeUp 1s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+}
+
+/* 🎨 ألوان */
+.yellow { background: linear-gradient(135deg, #facc15, #f97316); }
+.green  { background: linear-gradient(135deg, #22c55e, #06b6d4); }
+.red    { background: linear-gradient(135deg, #ef4444, #ec4899); }
+
+.card h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin-bottom: 20px;
+}
+
+/* 🔘 زر */
+.btn {
+    display: block;
+    padding: 12px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    background: white;
+    color: black;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* 📊 Dashboard */
+.dashboard {
+    margin: 50px auto;
+    width: 80%;
+    padding: 40px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.dashboard h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.dashboard p {
+    margin-bottom: 20px;
+}
+
+/* 🎬 Animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📱 Responsive */
+@media(max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <span style="font-size:20px;">🚗 Car Rental System</span>
+
+    <a href="{{ url_for('logout') }}" 
+       style="color:white; background:red; padding:8px 15px; border-radius:10px; text-decoration:none;">
+        🚪 تسجيل الخروج
+    </a>
+</div>
+
+<h1>🚗 نظام إدارة كراء السيارات</h1>
+<p class="subtitle">لوحة تحكم احترافية متكاملة</p>
+
+<div class="container">
+
+    <div class="card yellow">
+        <h2>📅 الحجوزات</h2>
+        <p>إدارة عمليات الكراء</p>
+        <a href="{{ url_for('rentals_page') }}" class="btn">الدخول</a>
+    </div>
+
+    <div class="card green">
+        <h2>👤 العملاء</h2>
+        <p>إدارة بيانات العملاء</p>
+        <a href="{{ url_for('clients_page') }}" class="btn">الدخول</a>
+    </div>
+
+    <div class="card red">
+        <h2>🚗 السيارات</h2>
+        <p>إدارة جميع السيارات</p>
+        <a href="{{ url_for('cars_page') }}" class="btn">الدخول</a>
+    </div>
+
+</div>
+
+<div class="dashboard">
+    <h2>📊 لوحة التحكم</h2>
+    <p>إحصائيات وتنبيهات النظام</p>
+    <a href="{{ url_for('dashboard') }}" class="btn">فتح Dashboard</a>
+</div>
+
+</body>
+</html>

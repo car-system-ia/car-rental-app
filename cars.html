@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>إدارة السيارات</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    padding: 20px;
+}
+
+/* 🔥 العنوان */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+/* 🧊 الفورم */
+.form-box {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+input {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    border: none;
+    width: 150px;
+}
+
+/* 🔘 زر */
+button {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* 📊 الجدول */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, #1f2937, #111827);
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+tr:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+/* 🔥 الحالات */
+.ok {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.warning {
+    color: #facc15;
+    font-weight: bold;
+}
+
+.danger {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+/* 🔙 زر رجوع */
+.back {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    background: #374151;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🚗 إدارة السيارات (نظام ذكي)</h1>
+
+<div class="form-box">
+<form method="POST">
+
+<input name="marque" placeholder="الماركة" required>
+<input name="modele" placeholder="الموديل" required>
+<input name="prix" placeholder="السعر/يوم" required>
+
+<input name="plate" placeholder="رقم اللوحة" required>
+<input name="chassis" placeholder="رقم الهيكل" required>
+
+<input type="date" name="assurance" required>
+<input type="date" name="controle" required>
+<input type="date" name="oil_change" required>
+
+<button>➕ إضافة</button>
+
+</form>
+</div>
+
+<table>
+<tr>
+<th>#</th>
+<th>الماركة</th>
+<th>الموديل</th>
+<th>السعر</th>
+<th>اللوحة</th>
+<th>الهيكل</th>
+<th>التأمين</th>
+<th>الفحص</th>
+<th>الزيت</th>
+<th>حذف</th>
+</tr>
+
+{% for car in cars %}
+<tr>
+
+<td>{{ car.id }}</td>
+<td>{{ car.marque }}</td>
+<td>{{ car.modele }}</td>
+<td>{{ car.prix }}</td>
+<td>{{ car.plate }}</td>
+<td>{{ car.chassis }}</td>
+
+<!-- 🔥 التأمين -->
+<td>
+{% set today = now().strftime("%Y-%m-%d") %}
+{% if car.assurance < today %}
+<span class="danger">❌ منتهي</span>
+{% elif car.assurance[:7] == today[:7] %}
+<span class="warning">⚠️ قريب</span>
+{% else %}
+<span class="ok">✅ ساري</span>
+{% endif %}
+</td>
+
+<!-- 🔥 الفحص -->
+<td>
+{% if car.controle < today %}
+<span class="danger">❌ منتهي</span>
+{% else %}
+<span class="ok">✅ ساري</span>
+{% endif %}
+</td>
+
+<!-- 🔥 الزيت -->
+<td>
+{% if car.oil_change < today %}
+<span class="danger">🔧 تغيير</span>
+{% else %}
+<span class="ok">✅ جيد</span>
+{% endif %}
+</td>
+
+<td>
+<a href="/delete_car/{{car.id}}" style="color:red;">🗑</a>
+</td>
+
+</tr>
+{% endfor %}
+</table>
+
+<a href="/" class="back">⬅ رجوع</a>
+
+</body>
+</html>

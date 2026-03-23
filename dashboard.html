@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            direction: rtl;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .card {
+            border-radius: 20px;
+            padding: 20px;
+            border: none;
+        }
+
+        .stat-card {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-5">📊 Dashboard احترافي</h2>
+
+    <!-- 🔢 الإحصائيات -->
+    <div class="row text-center mb-4">
+
+        <div class="col-md-3">
+            <div class="card bg-primary stat-card">
+                🚗 السيارات<br>{{ cars }}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success stat-card">
+                👤 العملاء<br>{{ clients }}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark stat-card">
+                📅 الحجوزات<br>{{ rentals }}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-danger stat-card">
+                ⚠️ التنبيهات<br>{{ expired_insurance + expired_controle + oil_due }}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 📊 الرسوم -->
+    <div class="row">
+
+        <!-- Pie Chart -->
+        <div class="col-md-6">
+            <div class="card bg-dark">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="col-md-6">
+            <div class="card bg-dark">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    // 📊 Pie Chart
+    new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+            labels: ['السيارات', 'العملاء', 'الحجوزات'],
+            datasets: [{
+                data: [{{ cars }}, {{ clients }}, {{ rentals }}],
+                backgroundColor: ['#36A2EB', '#4CAF50', '#FFC107']
+            }]
+        }
+    });
+
+    // 📊 Bar Chart (تنبيهات)
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+            labels: ['تأمين منتهي', 'فحص منتهي', 'تغيير زيت'],
+            datasets: [{
+                label: 'عدد',
+                data: [{{ expired_insurance }}, {{ expired_controle }}, {{ oil_due }}],
+                backgroundColor: ['#FF4C4C', '#FF8800', '#00C853']
+            }]
+        }
+    });
+
+</script>
+
+</body>
+</html>

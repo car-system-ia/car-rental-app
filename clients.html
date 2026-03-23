@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>إدارة العملاء</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    margin: 0;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    padding: 30px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+/* INPUTS */
+input {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin: 5px;
+    width: 30%;
+}
+
+/* BUTTON */
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #3b82f6, #06b6d4);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background: linear-gradient(45deg, #1e293b, #334155);
+    padding: 15px;
+}
+
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ACTION BUTTON */
+.delete {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+}
+
+/* BACK */
+.back {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 15px;
+    background: #475569;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+👤 إدارة العملاء
+</div>
+
+<div class="card">
+<form method="POST">
+
+<input type="text" name="name" placeholder="الاسم" required>
+<input type="text" name="phone" placeholder="رقم الهاتف" required>
+
+<button type="submit">➕ إضافة</button>
+
+</form>
+</div>
+
+<div class="card">
+
+<table>
+<tr>
+<th>#</th>
+<th>الاسم</th>
+<th>الهاتف</th>
+<th>العمليات</th>
+</tr>
+
+{% for c in clients %}
+<tr>
+<td>{{ c.id }}</td>
+<td>{{ c.name }}</td>
+<td>{{ c.phone }}</td>
+<td>
+<a href="/delete_client/{{c.id}}">
+<button class="delete">🗑 حذف</button>
+</a>
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+<a href="/" class="back">⬅ رجوع</a>
+
+</body>
+</html>

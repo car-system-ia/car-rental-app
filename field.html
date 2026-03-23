@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow p-4">
+
+    <h3 class="mb-4 text-center">📱 تطبيق العمال</h3>
+
+    <form method="POST">
+
+        <!-- 🚗 السيارة -->
+        <div class="mb-3">
+            <label class="form-label">🚗 السيارة</label>
+            <select name="car" class="form-select form-select-lg" required>
+                {% for car in cars %}
+                    <option value="{{ car.id }}">
+                        {{ car.marque }} - {{ car.modele }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- 📍 العملية -->
+        <div class="mb-3">
+            <label class="form-label">📍 العملية</label><br>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="action" value="دخول" checked>
+                <label class="form-check-label">دخول</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="action" value="خروج">
+                <label class="form-check-label">خروج</label>
+            </div>
+        </div>
+
+        <!-- ⛽ الوقود -->
+        <div class="mb-3">
+            <label class="form-label">⛽ الوقود</label>
+            <select name="fuel" class="form-select">
+                <option>0%</option>
+                <option>25%</option>
+                <option>50%</option>
+                <option>75%</option>
+                <option>100%</option>
+            </select>
+        </div>
+
+        <!-- 📏 KM -->
+        <div class="mb-3">
+            <label class="form-label">📏 KM</label>
+            <input type="number" name="km" class="form-control form-control-lg" placeholder="مثلا 120000">
+        </div>
+
+        <!-- ⚠️ أضرار -->
+        <div class="mb-3">
+            <label class="form-label">⚠️ أضرار</label>
+            <select name="damage" class="form-select">
+                <option>لا</option>
+                <option>نعم</option>
+            </select>
+        </div>
+
+        <!-- 📝 ملاحظة -->
+        <div class="mb-3">
+            <label class="form-label">📝 ملاحظة</label>
+            <textarea name="note" class="form-control" rows="3"></textarea>
+        </div>
+
+        <!-- ✅ زر -->
+        <button class="btn btn-success w-100 btn-lg">
+            💾 تسجيل العملية
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

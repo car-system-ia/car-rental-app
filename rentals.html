@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>الحجوزات</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4">🚗 إدارة الحجوزات</h2>
+
+    <!-- 🔴 الأخطاء -->
+    {% if error %}
+    <div class="alert alert-danger text-center">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <!-- 📝 الفورم -->
+    <div class="card mb-4 shadow">
+        <div class="card-body">
+            <form method="POST">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <label>العميل</label>
+                        <select name="client" class="form-control" required>
+                            {% for c in clients %}
+                            <option value="{{ c.id }}">{{ c.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>السيارة</label>
+                        <select name="car" class="form-control" required>
+                            {% for car in cars %}
+                            <option value="{{ car.id }}">
+                                {{ car.marque }} {{ car.modele }} - {{ car.prix }} دج/يوم
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>من</label>
+                        <input type="date" name="start_date" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>إلى</label>
+                        <input type="date" name="end_date" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button class="btn btn-success w-100">➕ حجز</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- 📊 الجدول -->
+    <div class="card shadow">
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>العميل</th>
+                        <th>السيارة</th>
+                        <th>السعر/يوم</th>
+                        <th>من</th>
+                        <th>إلى</th>
+                        <th>الأيام</th>
+                        <th>الإجمالي</th>
+                        <th>الحالة</th>
+                        <th>فاتورة</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for r in rentals %}
+                    <tr>
+                        <td>{{ r.id }}</td>
+                        <td>{{ r.name }}</td>
+                        <td>{{ r.marque }} {{ r.modele }}</td>
+                        <td>{{ r.prix }}</td>
+                        <td>{{ r.start_date }}</td>
+                        <td>{{ r.end_date }}</td>
+
+                        <!-- ✅ من backend -->
+                        <td>{{ r.days }}</td>
+                        <td>{{ r.total }}</td>
+
+                        <!-- 🔔 الحالة -->
+                        <td>
+                            {% if "منتهي" in r.status %}
+                                <span class="badge bg-danger">{{ r.status }}</span>
+                            {% elif "اليوم" in r.status %}
+                                <span class="badge bg-warning text-dark">{{ r.status }}</span>
+                            {% elif "قريب" in r.status %}
+                                <span class="badge bg-info text-dark">{{ r.status }}</span>
+                            {% else %}
+                                <span class="badge bg-success">{{ r.status }}</span>
+                            {% endif %}
+                        </td>
+
+                        <!-- 📄 PDF -->
+                        <td>
+                            <a href="/invoice/{{ r.id }}" class="btn btn-primary btn-sm">
+                                PDF
+                            </a>
+                        </td>
+
+                        <!-- ❌ حذف -->
+                        <td>
+                            <a href="/delete_rental/{{ r.id }}" class="btn btn-danger btn-sm">
+                                حذف
+                            </a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

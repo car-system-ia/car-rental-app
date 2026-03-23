@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">📋 العمليات</h2>
+
+<table class="table table-bordered table-striped shadow">
+    <thead class="table-dark">
+        <tr>
+            <th>السيارة</th>
+            <th>العملية</th>
+            <th>الوقود</th>
+            <th>KM</th>
+            <th>أضرار</th>
+            <th>ملاحظة</th>
+            <th>التاريخ</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for log in logs %}
+        <tr>
+            <td>{{ log.marque }} - {{ log.modele }}</td>
+            <td>
+                {% if log.action == 'دخول' %}
+                    <span class="badge bg-success">دخول</span>
+                {% else %}
+                    <span class="badge bg-danger">خروج</span>
+                {% endif %}
+            </td>
+            <td>{{ log.fuel }}</td>
+            <td>{{ log.km }}</td>
+            <td>
+                {% if log.damage == 'نعم' %}
+                    ⚠️ نعم
+                {% else %}
+                    ✅ لا
+                {% endif %}
+            </td>
+            <td>{{ log.note }}</td>
+            <td>{{ log.date }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تعديل سيارة</title>
+</head>
+<body>
+
+<h2>✏️ تعديل السيارة</h2>
+
+<form method="POST">
+    <input type="text" name="marque" value="{{ car.marque }}" required>
+    <input type="text" name="modele" value="{{ car.modele }}" required>
+    <input type="number" name="prix" value="{{ car.prix }}" required>
+    <button type="submit">حفظ</button>
+</form>
+
+<br>
+<a href="/cars">رجوع</a>
+
+</body>
+</html>

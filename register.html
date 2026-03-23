@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+
+        <div class="card shadow-lg border-0">
+            <div class="card-body">
+
+                <h4 class="text-center mb-4">📝 إنشاء حساب</h4>
+
+                <form method="post">
+
+                    <div class="mb-3">
+                        <input class="form-control" name="username" placeholder="اسم المستخدم" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-control" name="password" type="password" placeholder="كلمة السر" required>
+                    </div>
+
+                    <button class="btn btn-success w-100">
+                        تسجيل
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
